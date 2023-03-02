@@ -1,0 +1,22 @@
+name: Build, test and deploy
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test_unit:
+    name: SCA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: anchore/scan-action@v3
+        name: Grype Dependency Scanner (Report)
+        id: scan
+        with:
+          path: "."
+          acs-report-enable: true
+          fail-build: false
+
+      - name: Inspect Dependency SARIF Report
+        run: cat ${{ steps.scan.outputs.sarif }}
