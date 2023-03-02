@@ -1,4 +1,4 @@
-name: Build, test and deploy
+name: Supply Chain Analysis
 
 on:
   workflow_dispatch: {}
